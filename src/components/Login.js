@@ -32,21 +32,22 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // if (formValues.username === "" || formValues.password === "") {
-    //   setFormErrors("Username or Password not valid.")
-    // }else
+    if (formValues.username === "" || formValues.password === "") {
+      setFormErrors(error)
+    }else
     axios.post('http://localhost:5000/api/login', formValues)
       .then(res => {
         localStorage.setItem("token", res.data.payload);
         push('/bubbles');
       })
       .catch(err => {
-        console.log(err.message)
+        console.log(err.error)
       });
   };
   
-  const error = "Username or Password not valid.";
-  //replace with error state
+  const error = "Username or Password not valid." 
+  
+  
 
   return (
     <div>
