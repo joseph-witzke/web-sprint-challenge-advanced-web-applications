@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
 
 import Login from "./components/Login";
-import PrivateRoute from './components/PrivateRoute'
-import { axiosWithAuth } from "./helpers/axiosWithAuth";
+import PrivateRoute from './components/PrivateRoute';
 import BubblePage from './components/BubblePage';
 import "./styles.scss";
 
@@ -22,8 +21,7 @@ function App() {
           <a onClick={logout} data-testid="logoutButton" href="#">logout</a>
         </header> 
         <Switch>
-
-          <PrivateRoute path="/bubbles"component={BubblePage} />
+          <PrivateRoute path="/bubbles/:id"component={BubblePage} />
           <Route exact path="/" component={Login} />
           <Redirect exact path="/" component={Login} />
         </Switch>

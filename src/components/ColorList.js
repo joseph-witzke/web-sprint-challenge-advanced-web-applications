@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import { useParams } from 'react-router-dom';
 import axios from "axios";
+import { useParams } from 'react-router-dom';
+
+//Components 
 import Color from './Color';
 import EditMenu from './EditMenu';
+import { axiosWithAuth } from "../helpers/axiosWithAuth";
 
 const initialColor = {
   color: "",
-  code: { hex: "" }
+  code: { hex: "" },
 };
 
 const ColorList = ({ colors, updateColors }) => {
@@ -22,7 +25,8 @@ const ColorList = ({ colors, updateColors }) => {
 
   const saveEdit = e => {
     e.preventDefault();
-    axios.put(`http://localhost:5000/api/colors/${id}`, colors)
+      axiosWithAuth()
+      .put(`http://localhost:5000/api/colors/${id}`, colors)
       .then(res => {
         updateColors(res.data)
       })

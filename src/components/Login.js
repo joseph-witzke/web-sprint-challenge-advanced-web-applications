@@ -38,7 +38,7 @@ const Login = () => {
     axios.post('http://localhost:5000/api/login', formValues)
       .then(res => {
         localStorage.setItem("token", res.data.payload);
-        push('/bubbles');
+        push('/bubbles/:id');
       })
       .catch(err => {
         console.log(err.error)
