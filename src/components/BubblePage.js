@@ -22,8 +22,8 @@ const BubblePage = () => {
   return (
     <div className="container">
       <h3>Hi from BubblePage</h3>
-      {/* <ColorList colors={colorList} updateColors={setColorList} />
-      <Bubbles colors={colorList} /> */}
+      {/* <ColorList colors={colorList} updateColors={setColorList} /> */}
+      <Bubbles colors={colorList} />
     </div>
   );
 };
