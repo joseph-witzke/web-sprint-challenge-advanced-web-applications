@@ -110,6 +110,7 @@ export const handlers = [
         );
     }
   }),
+  
   // Handles a GET /user request
   rest.get(`${urlBase}/colors`, (req, res, ctx) => {
     if (authenticator(req)) {
