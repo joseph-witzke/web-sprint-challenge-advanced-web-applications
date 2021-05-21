@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from 'axios';
+import { useHistory } from "react-router";
 
 
 //Shape of state of form
@@ -18,14 +19,27 @@ const Login = () => {
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
 
-  useEffect(()=>{
-    // make a post request to retrieve a token from the api
-    // when you have handled the token, navigate to the BubblePage route
-  });
+  const { push } = useHistory();
 
+  // useEffect(()=>{
+  //   // make a post request to retrieve a token from the api
+  //   // when you have handled the token, navigate to the BubblePage route
+  // });
   const handleChange = (e) => {
     setFormValues({...formValues, [e.target.name]: e.target.value});
-  }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios.post('http://localhost:5000/api/login', formValues)
+      .then(res => {
+        localStorage.setItem("token", res.data.payload);
+        push('/bubbles');
+      })
+      .catch(err => {
+        console.log(err.message)
+      });
+  };
   
   const error = "";
   //replace with error state
@@ -35,7 +49,7 @@ const Login = () => {
       <h1>Welcome to the Bubble App!</h1>
       <div data-testid="loginForm" className="login-form">
         <h2>Login</h2>
-        <form action>
+        <form onSubmit={handleSubmit}>
           <div className="inputs">
               <label>
                   <input 
