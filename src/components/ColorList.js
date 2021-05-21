@@ -1,42 +1,60 @@
 import React, { useState } from "react";
+import { useParams } from 'react-router-dom';
 import axios from "axios";
+import Color from './Color';
+import EditMenu from './EditMenu';
 
 const initialColor = {
   color: "",
   code: { hex: "" }
 };
 
-// const ColorList = ({ colors, updateColors }) => {
-//   const [editing, setEditing] = useState(false);
-//   const [colorToEdit, setColorToEdit] = useState(initialColor);
+const ColorList = ({ colors, updateColors }) => {
+  const [editing, setEditing] = useState(false);
+  const [colorToEdit, setColorToEdit] = useState(initialColor);
 
-//   const editColor = color => {
-//     setEditing(true);
-//     setColorToEdit(color);
-//   };
+  const { id } = useParams();
 
-//   const saveEdit = e => {
-//     e.preventDefault();
+  const editColor = color => {
+    setEditing(true);
+    setColorToEdit(color);
+  };
 
-//   };
+  const saveEdit = e => {
+    e.preventDefault();
+    axios.put(`http://localhost:5000/api/colors/${id}`, colors)
+      .then(res => {
+        updateColors(res.data)
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
-//   const deleteColor = color => {
-//   };
+  const deleteColor = color => {
+    axios.delete(`http://localhost:5000/api/colors/${id}`)
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  };
 
-//   return (
-//     <div className="colors-wrap">
-//       <p>colors</p>
-//       <ul>
-//         {colors.map(color => <Color key={color.id} editing={editing} color={color} editColor={editColor} deleteColor={deleteColor}/>)}
-//       </ul>
+  return (
+    <div className="colors-wrap">
+      <p>colors</p>
+      <ul>
+        {colors.map(color => <Color key={color.id} editing={editing} color={color} editColor={editColor} deleteColor={deleteColor}/>)}
+      </ul>
       
-//       { editing && <EditMenu colorToEdit={colorToEdit} saveEdit={saveEdit} setColorToEdit={setColorToEdit} setEditing={setEditing}/> }
+      { editing && <EditMenu colorToEdit={colorToEdit} saveEdit={saveEdit} setColorToEdit={setColorToEdit} setEditing={setEditing}/> }
 
-//     </div>
-//   );
-// };
+    </div>
+  );
+};
 
-// export default ColorList;
+export default ColorList;
 
 //Task List:
 //1. Complete the saveEdit functions by making a put request for saving colors. (Think about where will you get the id from...)

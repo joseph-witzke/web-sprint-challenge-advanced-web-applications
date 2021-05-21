@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-d
 import Login from "./components/Login";
 import PrivateRoute from './components/PrivateRoute'
 import { axiosWithAuth } from "./helpers/axiosWithAuth";
-import BubblePage from './components/BubblePage'
+import BubblePage from './components/BubblePage';
 import "./styles.scss";
 
 
@@ -27,6 +27,7 @@ function App() {
           <a onClick={logout} data-testid="logoutButton" href="#">logout</a>
         </header> 
         <Switch>
+
           <PrivateRoute path="/bubbles"component={BubblePage} />
           <Route exact path="/" component={Login} />
           <Redirect exact path="/" component={Login} />

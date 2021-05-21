@@ -32,9 +32,9 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (formValues === "") {
-      setFormErrors(error)
-    }else
+    // if (formValues.username === "" || formValues.password === "") {
+    //   setFormErrors("Username or Password not valid.")
+    // }else
     axios.post('http://localhost:5000/api/login', formValues)
       .then(res => {
         localStorage.setItem("token", res.data.payload);
